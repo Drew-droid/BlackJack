@@ -9,7 +9,7 @@
 #include<math.h>
 #include "Functions.h"
 
-
+//Zakariás Zsolt
 
 int main() {
 
