@@ -1,1 +1,2 @@
 Zakariás Zsolt
+Szamtech Ic
