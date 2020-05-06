@@ -1,0 +1,63 @@
+/*int CheckGame(Dealer* player, Dealer* dealer, int balance, int bet, Dealer* deck)
+{
+	int sum_player = 0;
+	int sum_dealer = 0;
+	/*-----player-----*/
+	printf("\n\tPlayer cards sum: ");
+	for (int i = 0; i < player->size; ++i) {
+		sum_player += player->cards[i];
+		printf("%i\t", player->cards[i]);
+
+	}
+	
+	printf("\n\tPlayer cards sum: %i\n", sum_player);
+
+	/*-----dealer-----*/
+	printf("\n\tDealer cards: ");
+	for (int i = 0; i < dealer->size; ++i) {
+		printf("%i\t", dealer->cards[i]);
+	}
+
+	for (int i = 0; i < dealer->size; ++i) {
+		sum_dealer += dealer->cards[i];
+	}
+	printf("Player cards sum: %i\n", sum_dealer);
+
+
+	int scenario = 10;
+
+	while (scenario != 0) {
+
+		switch (scenario) {
+			//	/*---------Analysis--------*/
+		case 10:
+			if (sum_player < sum_dealer) {
+				balance -= bet;
+				scenario = 0;
+			}
+			if (sum_player == sum_dealer) {
+				scenario = 0;
+			}
+			if (sum_player > sum_dealer) {
+				scenario = 2;
+
+			}
+
+			break;
+			/*---------Dealer win-------*/
+		case 1:
+			balance -= bet;
+			scenario = 0;
+			break;
+			/*-----Dealer's  losing----*/
+		case 2:
+			dealer = Extra_card(deck, dealer);
+			scenario = 10;
+			break;
+			/*--------------------------*/
+		}
+
+	}
+	return 13;
+}
+*/

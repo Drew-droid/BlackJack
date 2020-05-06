@@ -1,0 +1,34 @@
+int scenario = 10;
+
+	while (scenario != 0) {
+
+		switch (scenario) {
+		//	/*---------Analysis--------*/
+		case 10:
+			if (sum_player < sum_dealer) {
+				balance -= bet;
+				scenario = 0;
+			}
+			if (sum_player == sum_dealer) {
+				scenario = 0;
+			}
+			if (sum_player > sum_dealer) {
+				scenario = 2;
+
+			}
+
+			break;
+			/*---------Dealer win-------*/
+		case 1:
+			balance -= bet;
+			scenario = 0;
+			break;
+			/*-----Dealer's  losing----*/
+		case 2:
+			dealer = Extra_card(deck, dealer);
+			scenario = 10;
+			break;
+			/*--------------------------*/
+		}
+
+	}

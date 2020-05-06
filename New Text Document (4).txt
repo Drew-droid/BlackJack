@@ -1,0 +1,45 @@
+switch (step) {
+			--------------------------
+		case 1
+			balance += Stand(playercards, dealer1, deck, balance, bet);
+			step = 2;
+			break;
+			--------------------------
+		case 2
+			CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
+			step = 2;
+			break;
+			
+			--------------------------
+		case 3
+			playercards = Extra_card(deck, playercards);
+			break;
+			--------------------------
+		case 4
+			CurentStatus(playercards, dealer1, sum_player, sum_dealer);
+			break;
+
+
+		}
+		
+		if (step!=2) {
+			printf(nnStepsnt11.Quit gament1.Standnt3.Hitnt3.Double downn);
+			printf(nNext step );
+			scanf(%i, &step);
+		}
+		if (step == 11) {
+			last_step = step;
+			step = 0;
+		}
+		if (step == 2) { 
+			last_step = step;
+			step = 0;
+		}
+		if (step == 1) {
+			last_step = step;
+			step = 2;
+		}
+		
+		sum_player = 0;
+		sum_dealer = 0;
+	}

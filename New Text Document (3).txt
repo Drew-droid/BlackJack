@@ -1,0 +1,61 @@
+//szituaciok: 1.lapok osszegzese 2.estek vizsgalata 3.dealer lapot huz
+	while (situation != 0) {
+
+		switch (situation) {
+			/*--------------------------*/
+		case 1:
+			//jatekos lapjainak osszeadasa
+			for (int i = 0; i < playercards->size; ++i) {
+				sum_player += playercards->cards[i];
+			}
+
+			//dealer lapjainka osszeadasa
+			for (int i = 0; i < dealer1->size; ++i) {
+				sum_dealer += dealer1->cards[i];
+			}
+
+			situation = 2;
+			break;
+			/*--------------------------*/
+		case 2:
+			//esetek:
+			//1. a jatekos alapbol veszit, nem kell a dealer lapot huzzon
+			if (sum_player < sum_dealer) {
+				situation = 0;
+				bet=bet;
+				break;
+			}
+
+			//2.a jatekos es a dealer ugyan annyi ertekkel rendelkezik
+			if (sum_player == sum_dealer) {
+				bet -= 2*bet;
+				situation = 0;
+				break;
+			}
+
+			//3. a dealer lapot kell huzzon hogy meglassa nyerhet-e
+			if (sum_player > sum_dealer) {
+				if (sum_dealer <= 17) {
+					dealer1 = Extra_card(deck, dealer1);
+					sum_dealer += dealer1->cards[dealer1->size];
+					situation = 2;
+				}
+				else { balance += bet;
+				situation = 0;
+				break;
+				}
+			}
+
+			break;
+			/*--------------------------*/
+		case 3:
+			break;
+			/*--------------------------*/
+	
+		}
+		if (!situation) { situation = 0; }
+		else { situation = 2; }
+
+
+
+	}
