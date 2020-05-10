@@ -27,12 +27,14 @@ int main() {
 	min_bet = MinBet(level);
 	int balance;
 	balance = SetLevel(level);
+	int base_balance = SetLevel(level);
 	printf("Level selected.Let's start the game!\n");
 	int option = 1;
 	while (option != 0) {
 		switch (option) {
 		case 1:
-			printf("Players credit: %i", balance);
+			printf("Base balance: %i", base_balance);
+			printf("\nPlayers credit: %i", balance);
 			break;
 		/*-----------------------------------------------------------------------*/
 		case 2:

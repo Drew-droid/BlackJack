@@ -422,15 +422,25 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 
 	Dealer* dealer1 = Dealer_cards(deck, level);
 	int sum = 0;
+	int sum_d = 0;
 	int b = balance;
-	for (int i = 0; i < playercards->size; ++i) {
-		sum += playercards->cards[i];
-	}
 	int sum_player = 0;
 	int sum_dealer = 0;
 	int step = 23;
 	int last_step = 0;
 	int x=0;
+	
+	//lapok megszamolasa, blackjack eseten a jatek instant megall
+	for (int i = 0; i < playercards->size; ++i) {
+		sum += playercards->cards[i];
+	}
+	for (int i = 0; i < dealer1->size; ++i) {
+		sum_d += dealer1->cards[i];
+	}
+	if (sum == 21 || sum_d==21) { step = 1; }
+
+
+	
 	while (step != 0) {
 			sum_player = 0;
 			sum_dealer = 0;
@@ -466,7 +476,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 
 
 		}
-
+		
 		
 
 		if (step == 1) {
@@ -488,6 +498,11 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 			printf("\n\nSteps:\n\t11.Quit game\n\t1.Stand\n\t2.Hit\n\t3.Double down\n");
 			printf("\nNext step: ");
 			scanf("%i", &step);
+		}
+
+		if (step == 0) {
+			last_step = 11;
+			continue;
 		}
 		if (step == 11) {
 			last_step = step;
