@@ -77,7 +77,6 @@ int main() {
 
 
 
-	PrintDeck(D);
 	FinishGame(D, balance, level);
 	return 11;
 }
