@@ -402,7 +402,8 @@ int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int 
 		sum_dealer += dealer1->cards[i];
 	}
 
-
+	red();
+	printf("\n\tRound over.");
 	if (sum_player > 21) {
 		balance -=2* bet;
 		return balance;
@@ -481,9 +482,10 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 				;
 				playercards = Extra_card(deck, playercards);
 				balance = Double(playercards, dealer1, deck, balance, bet);
+				magenta();
 				CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
 			}
-			else { red(); printf("Nem elegendo kredit!"); last_step = 23; }
+			else { red(); printf("Not enough credits!"); last_step = 23; }
 			break;
 			/*--------------------------*/
 		case 23:
