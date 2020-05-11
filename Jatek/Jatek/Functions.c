@@ -52,15 +52,20 @@ void FinishGame(Dealer* d, int balance,int gamemode)
 	int money = SetLevel(gamemode);
 	if (balance < money) {
 		difference = money - balance;
+		red();
 		printf("\t\tCash lost: -%i\n", difference);
+		reset();
 	}
 	if (balance > money) {
+		green();
 		difference = balance-money;
 		printf("\t\tCash won: %i\n", difference);
+		reset();
 	}
 	if (balance == money) {
+		yellow();
 		printf("\t\tNo cash won, nor lost.(%i)\n", balance);
-
+		reset();
 	}
 
 }
@@ -148,7 +153,7 @@ Dealer * Cards_given( Dealer *deck)
 	int sum = 0;
 	int k;
 	srand(time(NULL));
-	printf("\tStarting  cards: ");
+	//printf("\tStarting  cards: ");
 	for (int i = 0; i <p->size; ++i) {
 		p->cards[i] = rand() % 10+ 2;
 		k = p->cards[i];
@@ -163,11 +168,12 @@ Dealer * Cards_given( Dealer *deck)
 
 		}
 		deck->cards[k] -= 1;
-		printf("%i\t", p->cards[i]);
+		/*delay(0.5);
+		printf("%i\t", p->cards[i]);*/
 	}
 	
-
-	printf("\n\tCards total sum: %i\n", sum);
+	/*delay(0.5);
+	printf("\n\tCards total sum: %i\n", sum);*/
 
 
 
@@ -205,7 +211,7 @@ Dealer* Dealer_cards(Dealer* deck, int level)
 	/*---------------------------------------*/
 	int x = 0;
 	srand(time(NULL));
-	printf("\tStarting  card for the dealer: ");
+	//printf("\tStarting  card for the dealer: ");
 	for (int i = 0; i < p->size; ++i) {
 		x = rand() % 10 + s;
 		if ( x<= 11) {
@@ -225,7 +231,8 @@ Dealer* Dealer_cards(Dealer* deck, int level)
 		}
 		else { --i; }
 	}
-	printf("%i\t", p->cards[1]);
+
+	//printf("%i\t", p->cards[1]);
 
 
 	return p;
@@ -270,7 +277,6 @@ Dealer* Extra_card(Dealer* deck, Dealer* player)
 
 
 
-
 //jatek fgv-ek
 void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_dealer)
 {
@@ -280,15 +286,17 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 	printf("\n\tPlayer cards: ");
 	for (int i = 0; i < playercards->size; ++i) {
 		sum_player += playercards->cards[i];
+		delay(1);
 		printf("%i\t", playercards->cards[i]);
 
 	}
-
+	delay(1);
 	printf("\n\tPlayer cards sum: %i\n", sum_player);
 
 	/*-----dealer-----*/
-
+	delay(1);
 	printf("\n\tDealer cards: ");
+	delay(1);
 	printf("%i\t", dealer1->cards[1]);
 	/*for (int i = 0; i < dealer1->size; ++i) {
 		printf("%i\t", dealer1->cards[i]);
@@ -298,6 +306,7 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 		sum_dealer += dealer1->cards[i];
 	}*/
 	sum_dealer = dealer1->cards[1];
+	delay(1);
 	printf("\n\tDealers cards sum: %i\n", sum_dealer);
 
 
@@ -305,6 +314,7 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 }
 
 
+//vegso kiiratas a jatek befejeztevel
 void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_dealer)
 {
 
@@ -316,19 +326,17 @@ void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum
 		printf("%i\t", playercards->cards[i]);
 
 	}
-
 	printf("\n\tPlayer cards sum: %i\n", sum_player);
 
 	/*-----dealer-----*/
-
+	delay(1);
 	printf("\n\tDealer cards: ");
 	for (int i = 0; i < dealer1->size; ++i) {
+		sum_dealer += dealer1->cards[i];
+		delay(1);
 		printf("%i\t", dealer1->cards[i]);
 	}
-	
-	for (int i = 0; i < dealer1->size; ++i) {
-		sum_dealer += dealer1->cards[i];
-	}
+	delay(1);
 	printf("\n\tDealers cards sum: %i\n", sum_dealer);
 
 
@@ -351,8 +359,10 @@ int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int b
 		sum_dealer += dealer1->cards[i];
 	}
 
-	printf("\n\tRound over.");
 
+	red();
+	printf("\n\tRound over.");
+	reset();
 	if (sum_player > 21) {
 		balance -=  bet;
 		return balance;
@@ -437,6 +447,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 	for (int i = 0; i < dealer1->size; ++i) {
 		sum_d += dealer1->cards[i];
 	}
+	//teszteles: sum_d = 21;
 	if (sum == 21 || sum_d==21) { step = 1; }
 
 
@@ -449,11 +460,13 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 			/*--------------------------*/
 		case 1:
 			balance = Stand(playercards, dealer1, deck, balance, bet);
+			magenta();
 			CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
 			break;
 			/*--------------------------*/
 		case 2:
 			playercards = Extra_card(deck, playercards);
+			magenta();
 			CurentStatus(playercards, dealer1, sum_player, sum_dealer);
 			for (int i = 0; i < playercards->size; ++i) {
 				sum_player += playercards->cards[i];
@@ -461,23 +474,31 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 			}
 			x = sum_player;
 			break;
-			
 			/*--------------------------*/
 		case 3:
-			playercards = Extra_card(deck, playercards);
-			balance = Double(playercards, dealer1, deck, balance, bet);
-			CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
-
+			magenta();
+			if (2 * bet <= balance) {
+				;
+				playercards = Extra_card(deck, playercards);
+				balance = Double(playercards, dealer1, deck, balance, bet);
+				CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
+			}
+			else { red(); printf("Nem elegendo kredit!"); last_step = 23; }
 			break;
 			/*--------------------------*/
 		case 23:
+			magenta();
 			CurentStatus(playercards, dealer1, sum_player, sum_dealer);
 			break;
 
 
 		}
 		
-		
+		if (last_step == 23) {
+			step = 23;
+			last_step = 0;
+			continue;
+		}
 
 		if (step == 1) {
 			step = 0;
@@ -495,9 +516,12 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 
 		
 		if (step!=3) {
+			cyan();
+			delay(1);
 			printf("\n\nSteps:\n\t11.Quit game\n\t1.Stand\n\t2.Hit\n\t3.Double down\n");
 			printf("\nNext step: ");
 			scanf("%i", &step);
+			
 		}
 
 		if (step == 0) {
@@ -524,3 +548,47 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 }
 
 
+//coloring
+void reset() {
+	printf("\033[0m");
+}
+
+void magenta()
+{
+	printf("\033[0;35m");
+}
+
+void yellow(){
+	printf("\033[1;33m");
+}
+
+void red() {
+	printf("\033[0;31m");
+}
+
+void green() {
+	printf("\033[0;32m");
+}
+
+void blue() {
+	printf("\033[0;34m");
+}
+
+void cyan() {
+	printf("\033[0;36m");
+}
+
+
+//plus
+void delay(int number_of_seconds)
+{
+	// Converting time into milli_seconds 
+	int milli_seconds = 1000 * number_of_seconds;
+
+	// Storing start time 
+	clock_t start_time = clock();
+
+	// looping till required time is not achieved 
+	while (clock() < start_time + milli_seconds)
+		;
+}

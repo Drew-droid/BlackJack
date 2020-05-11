@@ -34,6 +34,10 @@ Dealer *Cards_given(Dealer *deck);
 Dealer* Dealer_cards(Dealer* deck, int level);
 //extra lap
 Dealer* Extra_card(Dealer* deck, Dealer* player);
+//dealer extra lap
+Dealer* Extra_card_dealer(Dealer* deck, Dealer* dealer);
+
+
 
 //jatek
 int Game(Dealer* playercards, int bet, int balance, Dealer* deck,int level);
@@ -46,4 +50,24 @@ int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int b
 //double
 int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet);
 
+
+
+
+//coloring
+void magenta();
+
+void reset();
+
+void yellow();
+
+void red();
+
+void green();
+
+void blue();
+
+void cyan();
+
+
+void delay(int number_of_seconds);
 #endif // !BLACKJACK_H

@@ -9,27 +9,36 @@
 #include<math.h>
 #include "Functions.h"
 
+
+
+
 //Zakariás Zsolt
 
 int main() {
 
+
 	Dealer* D;
 	D=CreateDeck("Deck.txt");
-	PrintDeck(D);
+	//PrintDeck(D);
 	/*--------------------*/
 	int bet;
 	int min_bet;
 	Dealer* c;//cards
+	int last_balance = 0;
 	/*-------------------*/
 	int level;
+	delay(1.5);
+	yellow();
 	printf("Choose your level:\n\t 1.Amateur\n\t2.Professional\n\t3.Word Class\n");
 	scanf("%i", &level);
 	min_bet = MinBet(level);
 	int balance;
 	balance = SetLevel(level);
 	int base_balance = SetLevel(level);
+	delay(1);
 	printf("Level selected.Let's start the game!\n");
 	int option = 1;
+	delay(1);cyan();
 	while (option != 0) {
 		switch (option) {
 		case 1:
@@ -41,13 +50,17 @@ int main() {
 			printf("New Game. Make your bet(Minimum bet: %i): ", min_bet);
 			scanf("%i", &bet);
 			if (bet < min_bet) {
+				red();
 				printf("Not enough bet made!");
 				option = 2;
+				reset();
 				break;
 			}
 			if (bet > balance) {
+				red();
 				printf("Not enough chips to bet!");
 				option = 2;
+				reset();
 				break;
 			}
 			c= Cards_given(D);
@@ -57,15 +70,20 @@ int main() {
 			break;
 
 		default:
+			red();
 			printf("\nWrong command !");
 			break;
 		}
 
+
 		if (balance < min_bet) {
+			red();
 			printf("\n\tNot enough credits to play. Better Luck next time!\n");
+			delay(5);
 			option = 0;
 		}
 		else {
+			yellow();
 			printf("\n\nCommands:\n\t0.Quit game\n\t1.Player Credits\n\t2.New Game\n\t");
 			printf("\nNew Command: ");
 
@@ -75,10 +93,10 @@ int main() {
 
 
 	}
+	
 
 
 
-
-	FinishGame(D, balance, level);
+	FinishGame(D,balance, level);
 	return 11;
 }
