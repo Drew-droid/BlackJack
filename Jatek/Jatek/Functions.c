@@ -594,3 +594,10 @@ void delay(int number_of_seconds)
 	while (clock() < start_time + milli_seconds)
 		;
 }
+
+void Player_Balance(int base_balance, int balance)
+{
+	cyan();
+	printf("Base balance: %i", base_balance);
+	printf("\nPlayers credit: %i", balance);
+}

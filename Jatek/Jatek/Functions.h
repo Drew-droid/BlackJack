@@ -70,4 +70,10 @@ void cyan();
 
 
 void delay(int number_of_seconds);
+
+
+//kiirasok a mainben
+
+void Player_Balance(int base_balance,int balance);
+
 #endif // !BLACKJACK_H

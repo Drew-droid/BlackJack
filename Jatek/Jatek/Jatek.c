@@ -39,11 +39,11 @@ int main() {
 	printf("Level selected.Let's start the game!\n");
 	int option = 1;
 	delay(1);cyan();
+
 	while (option != 0) {
 		switch (option) {
 		case 1:
-			printf("Base balance: %i", base_balance);
-			printf("\nPlayers credit: %i", balance);
+			Player_Balance( base_balance, balance);
 			break;
 		/*-----------------------------------------------------------------------*/
 		case 2:
