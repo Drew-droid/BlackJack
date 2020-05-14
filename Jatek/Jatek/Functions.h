@@ -76,4 +76,6 @@ void delay(int number_of_seconds);
 
 void Player_Balance(int base_balance,int balance);
 
+void menu();
+
 #endif // !BLACKJACK_H

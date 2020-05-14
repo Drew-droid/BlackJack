@@ -47,26 +47,59 @@ void FinishGame(Dealer* d, int balance,int gamemode)
 {
 	free(d->cards);
 	free(d);
-	printf("\nGame over.");
 	int difference;
 	int money = SetLevel(gamemode);
 	if (balance < money) {
 		difference = money - balance;
 		red();
-		printf("\t\tCash lost: -%i\n", difference);
+		printf("\t\t\t\t\t\t\t\t\tCash lost: -%i\n", difference);
 		reset();
 	}
 	if (balance > money) {
 		green();
 		difference = balance-money;
-		printf("\t\tCash won: %i\n", difference);
+		printf("\t\t\t\t\t\t\t\t\tCash won: %i\n", difference);
 		reset();
 	}
 	if (balance == money) {
 		yellow();
-		printf("\t\tNo cash won, nor lost.(%i)\n", balance);
+		printf("\t\t\t\t\t\t\t\t\tNo cash won, nor lost.(%i)\n", balance);
 		reset();
 	}
+	FILE* fin;
+	fin = fopen("End.txt", "rt");
+
+	char title[333];
+	int x = 0;
+	printf("\n\n\n");
+	while (fscanf(fin, "%[^\n]\n", &title) != EOF) {//end of file read
+		if (x == 5) {
+			magenta();
+		}
+		if (x == 4) {
+			blue();
+		}
+		if (x == 3) {
+			cyan();
+		}
+		if (x == 2) {
+			green();
+		}
+		if (x == 1) {
+			yellow();
+		}
+		if (x == 0) {
+			red();
+		}
+		printf("\t\t\t\t\t %s\n", title);
+		x += 1;
+		delay(1);
+	}
+	printf("\n\n");
+
+
+
+
 
 }
 
@@ -283,7 +316,7 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 
 	/*-----player-----*/
 	printf("\n");
-	printf("\n\tPlayer cards: ");
+	printf("\n\t\t\t\t\t\t\t\t\t\tPlayer cards: ");
 	for (int i = 0; i < playercards->size; ++i) {
 		sum_player += playercards->cards[i];
 		delay(1);
@@ -291,11 +324,11 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 
 	}
 	delay(1);
-	printf("\n\tPlayer cards sum: %i\n", sum_player);
+	printf("\n\t\t\t\t\t\t\t\t\t\tPlayer cards sum: %i\n", sum_player);
 
 	/*-----dealer-----*/
 	delay(1);
-	printf("\n\tDealer cards: ");
+	printf("\n\t\t\t\t\t\t\t\t\t\tDealer cards: ");
 	delay(1);
 	printf("%i\t", dealer1->cards[1]);
 	/*for (int i = 0; i < dealer1->size; ++i) {
@@ -307,7 +340,7 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 	}*/
 	sum_dealer = dealer1->cards[1];
 	delay(1);
-	printf("\n\tDealers cards sum: %i\n", sum_dealer);
+	printf("\n\t\t\t\t\t\t\t\t\t\tDealers cards sum: %i\n", sum_dealer);
 
 
 
@@ -320,25 +353,25 @@ void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum
 
 	/*-----player-----*/
 	printf("\n");
-	printf("\n\tPlayer cards: ");
+	printf("\n\t\t\t\t\t\t\t\t\t\tPlayer cards: ");
 	for (int i = 0; i < playercards->size; ++i) {
 		sum_player += playercards->cards[i];
 		printf("%i\t", playercards->cards[i]);
 
 	}
-	printf("\n\tPlayer cards sum: %i\n", sum_player);
+	printf("\n\t\t\t\t\t\t\t\t\t\tPlayer cards sum: %i\n", sum_player);
 
 	/*-----dealer-----*/
 	delay(1);
-	printf("\n\tDealer cards: ");
+	printf("\n\t\t\t\t\t\t\t\t\t\tDealer cards: ");
 	for (int i = 0; i < dealer1->size; ++i) {
 		sum_dealer += dealer1->cards[i];
 		delay(1);
 		printf("%i\t", dealer1->cards[i]);
 	}
 	delay(1);
-	printf("\n\tDealers cards sum: %i\n", sum_dealer);
-
+	printf("\n\t\t\t\t\t\t\t\t\t\tDealers cards sum: %i\n", sum_dealer);
+	delay(2);
 
 
 }
@@ -361,25 +394,37 @@ int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int b
 
 
 	red();
-	printf("\n\tRound over.");
+	printf("\n\t\t\t\t\t\t\t\t\t\tRound over.");
 	reset();
 	if (sum_player > 21) {
 		balance -=  bet;
+		red();
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.-%i", bet);
+		delay(2);
 		return balance;
 	}
 	
 	if (sum_player < sum_dealer) {
 		balance -=bet ;
+		red();
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST. -%i", bet);
+		delay(2);
 		return balance;
 	}
 
 	if (sum_player == sum_dealer) {
 		balance =balance;
+		yellow();
+		printf("\n\t\t\t\t\t\t\t\t\t\tDRAW.");
+		delay(2);
 		return balance;
 	}
 
 	if (sum_player > sum_dealer) {
 		balance += bet;
+		green();
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER WON. +%i", bet);
+		delay(2);
 		return balance;
 	}
 
@@ -403,24 +448,36 @@ int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int 
 	}
 
 	red();
-	printf("\n\tRound over.");
+	printf("\n\t\t\t\t\t\t\t\t\t\tRound over.");
 	if (sum_player > 21) {
 		balance -=2* bet;
+		red();
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.");
+		delay(2);
 		return balance;
 	}
 
 	if (sum_player < sum_dealer) {
 		balance -=2* bet;
+		red();
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.");
+		delay(2);
 		return balance;
 	}
 
 	if (sum_player == sum_dealer) {
 		balance = balance;
+		yellow();
+		printf("\n\t\t\t\t\t\t\t\t\t\tDRAW.");
+		delay(2);
 		return balance;
 	}
 
 	if (sum_player > sum_dealer) {
 		balance +=2* bet;
+		green();
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER WON.");
+		delay(2);
 		return balance;
 	}
 
@@ -440,7 +497,8 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 	int step = 23;
 	int last_step = 0;
 	int x=0;
-	
+	int anti_double = 0;
+
 	//lapok megszamolasa, blackjack eseten a jatek instant megall
 	for (int i = 0; i < playercards->size; ++i) {
 		sum += playercards->cards[i];
@@ -460,9 +518,9 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 		switch (step) {
 			/*--------------------------*/
 		case 1:
-			balance = Stand(playercards, dealer1, deck, balance, bet);
 			magenta();
 			CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
+			balance = Stand(playercards, dealer1, deck, balance, bet);
 			break;
 			/*--------------------------*/
 		case 2:
@@ -473,19 +531,21 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 				sum_player += playercards->cards[i];
 
 			}
+			anti_double += 1;
 			x = sum_player;
 			break;
 			/*--------------------------*/
 		case 3:
 			magenta();
+			if (anti_double >= 1) { break; }
 			if (2 * bet <= balance) {
 				;
 				playercards = Extra_card(deck, playercards);
-				balance = Double(playercards, dealer1, deck, balance, bet);
 				magenta();
 				CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
+				balance = Double(playercards, dealer1, deck, balance, bet);
 			}
-			else { red(); printf("Not enough credits!"); last_step = 23; }
+			else { red(); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); last_step = 23; }
 			break;
 			/*--------------------------*/
 		case 23:
@@ -496,43 +556,65 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 
 		}
 		
+		if (step == 3 && anti_double >= 1) {
+			red();
+			printf("\t\t\t\t\t\t\t\t\t\tDouble down must be the first step!");
+			cyan();
+			delay(1);
+			printf("\n\n\t\t\t\t\t\t\t\t\tSteps:\n\t\t\t\t\t\t\t\t\t\t\t11.Quit game\n\t\t\t\t\t\t\t\t\t\t\t1.Stand\n\t\t\t\t\t\t\t\t\t\t2.Hit");
+			if (anti_double < 1) { printf("\n\t\t\t\t\t\t\t\t\t\t3.Double down\n"); }
+			printf("\n\t\t\t\t\t\t\t\t\tNext step: ");
+			scanf("%i", &step);
+			system("CLS");
+			continue;
+		}
+
 		if (last_step == 23) {
 			step = 23;
 			last_step = 0;
+			system("CLS");
 			continue;
 		}
 
 		if (step == 1) {
 			step = 0;
+			system("CLS");
 			continue;
 		}
 		if (step == 3) {
 			step = 0;
+			system("CLS");
 			continue;
 		}
 		
 		if (x > 21) {
 			step = 1;
+			system("CLS");
 			continue;
 		}
+
+		
 
 		
 		if (step!=3) {
 			cyan();
 			delay(1);
-			printf("\n\nSteps:\n\t11.Quit game\n\t1.Stand\n\t2.Hit\n\t3.Double down\n");
-			printf("\nNext step: ");
+			printf("\n\n\t\t\t\t\t\t\t\t\tSteps:\n\t\t\t\t\t\t\t\t\t\t11.Quit game\n\t\t\t\t\t\t\t\t\t\t1.Stand\n\t\t\t\t\t\t\t\t\t\t2.Hit");
+			if (anti_double < 1) {printf("\n\t\t\t\t\t\t\t\t\t\t3.Double down\n");}
+			printf("\n\t\t\t\t\t\t\t\t\tNext step: ");
 			scanf("%i", &step);
-			
+			system("CLS");
 		}
 
 		if (step == 0) {
 			last_step = 11;
+			system("CLS");
 			continue;
 		}
 		if (step == 11) {
 			last_step = step;
 			step = 0;
+			system("CLS");
 			continue;
 		}
 		
@@ -598,6 +680,43 @@ void delay(int number_of_seconds)
 void Player_Balance(int base_balance, int balance)
 {
 	cyan();
-	printf("Base balance: %i", base_balance);
-	printf("\nPlayers credit: %i", balance);
+	printf("\t\t\t\t\t\t\t\t\t\tBase balance: %i", base_balance);
+	printf("\n\t\t\t\t\t\t\t\t\t\tPlayers credit: %i", balance);
+}
+
+void menu()
+{
+	FILE* fin;
+	fin = fopen("Title.txt", "rt");
+	
+	char title[333];
+	int x = 0;
+	printf("\n\n\n");
+	while (fscanf(fin, "%[^\n]\n", &title) != EOF) {//end of file read
+		if (x == 0) {
+			magenta();
+		}
+		if (x == 1) {
+			blue();
+		}
+		if (x == 2) {
+			cyan();
+		}
+		if (x == 3) {
+			green();
+		}
+		if (x == 4) {
+			yellow();
+		}
+		if (x == 5) {
+			red();
+		}
+		printf("\t\t\t\t\t\t %s\n", title);
+		x += 1;
+		delay(1);
+	}
+	printf("\n\n");
+	delay(1.5);
+	yellow();
+	printf("\t\t\t\t\t\t\t\t\t\tCHOOSE YOUR LEVEL:\n\n\t\t\t\t\t\t\t\t\t\t 1.AMATEUR\n\n\t\t\t\t\t\t\t\t\t\t2.PROFESSIONAL\n\n\t\t\t\t\t\t\t\t\t\t3.WORD CLASS\n");
 }

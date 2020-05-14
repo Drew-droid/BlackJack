@@ -1,2 +1,10 @@
-﻿Debug\Functions.obj : warning LNK4042: object specified more than once; extras ignored
+﻿  Functions.c
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(17,52): warning C4133: '=': incompatible types - from 'Dealer *' to 'int *'
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(172,51): warning C4133: '=': incompatible types - from 'Dealer *' to 'int *'
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(188,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(246,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(282,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(719,11): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(432): warning C4715: 'Stand': not all control paths return a value
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(485): warning C4715: 'Double': not all control paths return a value
   Jatek.vcxproj -> C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Debug\Jatek.exe
