@@ -11,3 +11,5 @@ Bugfix: nem lehetséges a "double down" funkció ha nincs elegendő kredite a j�
 
 1.4: design (arculat) + fgv-esités.
 Bugfix: pár lehetséges buktató további kijavítása.
+
+1.5: fgv rendezés + szintlépés lehetőség

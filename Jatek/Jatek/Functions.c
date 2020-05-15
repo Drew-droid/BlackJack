@@ -49,13 +49,14 @@ void FinishGame(Dealer* d, int balance,int gamemode)
 	free(d);
 	int difference;
 	int money = SetLevel(gamemode);
-	if (balance < money) {
-		difference = money - balance;
+	difference = balance - money;
+	if (difference<0 ) {
+		
 		red();
-		printf("\t\t\t\t\t\t\t\t\tCash lost: -%i\n", difference);
+		printf("\t\t\t\t\t\t\t\t\tCash lost: %i\n", difference);
 		reset();
 	}
-	if (balance > money) {
+	if (difference> 0) {
 		green();
 		difference = balance-money;
 		printf("\t\t\t\t\t\t\t\t\tCash won: %i\n", difference);
@@ -110,7 +111,7 @@ int SetLevel(int level)
 	while (level != 0) {
 
 		switch (level) {
-		case 1: balance += 10000;
+		case 1: balance += 1000;
 			level = 0;
 			break;
 		/*--------------------------*/
@@ -346,7 +347,6 @@ void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_
 
 }
 
-
 //vegso kiiratas a jatek befejeztevel
 void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_dealer)
 {
@@ -375,7 +375,6 @@ void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum
 
 
 }
-
 
 int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet)
 {
@@ -431,12 +430,11 @@ int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int b
 
 }
 
-
 int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet)
 {
 	int sum_player = 0;
 	int sum_dealer = 0;
-	int b = 0;
+	int b;
 	//jatekos lapjainak osszeadasa
 	for (int i = 0; i < playercards->size; ++i) {
 		sum_player += playercards->cards[i];
@@ -451,16 +449,18 @@ int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int 
 	printf("\n\t\t\t\t\t\t\t\t\t\tRound over.");
 	if (sum_player > 21) {
 		balance -=2* bet;
+		b = 2*bet;
 		red();
-		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.");
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.-%i", b);
 		delay(2);
 		return balance;
 	}
 
 	if (sum_player < sum_dealer) {
 		balance -=2* bet;
+		b = (-2) * bet;
 		red();
-		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.");
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER LOST.%i", b);
 		delay(2);
 		return balance;
 	}
@@ -475,8 +475,9 @@ int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int 
 
 	if (sum_player > sum_dealer) {
 		balance +=2* bet;
+		b = 2 * bet;
 		green();
-		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER WON.");
+		printf("\n\t\t\t\t\t\t\t\t\t\tPLAYER WON.%i", b);
 		delay(2);
 		return balance;
 	}
@@ -484,8 +485,78 @@ int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int 
 
 }
 
+int bet_check(int check, int bet, int min_bet, int balance)
+{
+	
+	if (bet < min_bet) {
+		red();
+		printf("\t\t\t\t\t\t\t\t\t\tNot enough bet made!");
+		check += 24;
+		reset();
+		delay(2);
+		system("CLS");
+		
+	}
+	if (bet > balance) {
+		red();
+		printf("\t\t\t\t\t\t\t\t\t\tNot enough chips to bet!");
+		check += 24;
+		reset();
+		delay(2);
+		system("CLS");
+	}
 
-int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
+	return check;
+}
+
+int level_up(int level, double wl, int balance)
+{
+	int base_balance = SetLevel(level);
+	int y=0;
+	if (wl >= 2 && balance >= base_balance) {
+		magenta();
+		printf("\n\t\t\t\t\t\t\t\t\t\tDo you want to set a new level?");
+		printf("\n\t\t\t\t\t\t\t\t\t\t1.Yes\n\t\t\t\t\t\t\t\t\t\t0.No\n");
+		scanf("%i", &y);
+		if (y == 1) {
+			printf("\t\t\t\t\t\t\t\t\t\tCHOOSE YOUR LEVEL:\n\n\t\t\t\t\t\t\t\t\t\t 1.AMATEUR\n\n\t\t\t\t\t\t\t\t\t\t2.PROFESSIONAL\n\n\t\t\t\t\t\t\t\t\t\t3.WORD CLASS\n");
+			scanf("%i", &level);
+			printf("\t\t\t\t\t\t\t\t\t\tNew level set is done.");
+			delay(2);
+			return level;
+		}
+		else { return level; }
+	}
+
+
+	return level;
+}
+
+double WLD(int balance, int last_balance, double wl)
+{
+	if (last_balance < balance) {
+		wl += 1;
+		return wl;
+	}
+
+	if (last_balance > balance) {
+		wl -= 1;
+		return wl;
+	}
+
+	if (last_balance == balance) {
+		wl += 0.5;
+		return wl;
+	}
+
+
+	return wl;
+}
+
+
+
+
+int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level, double wl) {
 
 
 	Dealer* dealer1 = Dealer_cards(deck, level);
@@ -498,6 +569,8 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 	int last_step = 0;
 	int x=0;
 	int anti_double = 0;
+	int last_balance = balance;
+
 
 	//lapok megszamolasa, blackjack eseten a jatek instant megall
 	for (int i = 0; i < playercards->size; ++i) {
@@ -515,6 +588,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 			sum_player = 0;
 			sum_dealer = 0;
 			x = 0;
+
 		switch (step) {
 			/*--------------------------*/
 		case 1:
@@ -537,7 +611,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 			/*--------------------------*/
 		case 3:
 			magenta();
-			if (anti_double >= 1) { break; }
+			if (anti_double >= 1) { red(); delay(2); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); break; }
 			if (2 * bet <= balance) {
 				;
 				playercards = Extra_card(deck, playercards);
@@ -545,7 +619,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 				CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
 				balance = Double(playercards, dealer1, deck, balance, bet);
 			}
-			else { red(); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); last_step = 23; }
+			else { red(); delay(2); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); last_step = 23; break; }
 			break;
 			/*--------------------------*/
 		case 23:
@@ -555,7 +629,17 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level) {
 
 
 		}
-		
+	
+		//lapok megszamolasa, blackjack eseten a jatek instant megall
+		for (int i = 0; i < playercards->size; ++i) {
+			sum += playercards->cards[i];
+		}
+		for (int i = 0; i < dealer1->size; ++i) {
+			sum_d += dealer1->cards[i];
+		}
+		//teszteles: sum_d = 21;
+		if (sum == 21 || sum_d == 21) { step = 1; continue; }
+
 		if (step == 3 && anti_double >= 1) {
 			red();
 			printf("\t\t\t\t\t\t\t\t\t\tDouble down must be the first step!");

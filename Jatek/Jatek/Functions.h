@@ -40,8 +40,8 @@ Dealer* Extra_card_dealer(Dealer* deck, Dealer* dealer);
 
 
 //jatek
-int Game(Dealer* playercards, int bet, int balance, Dealer* deck,int level);
-//kiiratas
+int Game(Dealer* playercards, int bet, int balance, Dealer* deck,int level, double wl);
+//kiiratas, a dealer csak 1 lapot mutat
 void CurentStatus(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_dealer);
 //kiiratas2-dealer lapot mutat
 void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum_dealer);
@@ -49,9 +49,12 @@ void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum
 int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet);
 //double
 int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet);
-
-
-
+//bet ellenorzes
+int bet_check(int check, int bet, int min_bet, int balance);
+//szint lepes
+int level_up(int level, double wl, int balance);
+//win lose draw 
+double  WLD(int balance, int last_balance, double wl);
 
 //coloring
 void magenta();

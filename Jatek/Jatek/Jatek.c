@@ -28,10 +28,13 @@ int main() {
 	int balance;
 	int option = 1;
 	int base_balance;
+	double wl = 0;
+	int round = 0;
 	menu();
 	/*-------------------*/
 	
 	int level;
+	int base_level = 0;
 	scanf("%i", &level);
 	min_bet = MinBet(level);
 	
@@ -52,7 +55,7 @@ int main() {
 		case 2:
 			printf("\t\t\t\t\t\t\t\tNew Game. Make your bet(Minimum bet: %i): ", min_bet);
 			scanf("%i", &bet);
-			if (bet < min_bet) {
+		/*	if (bet < min_bet) {
 				red();
 				printf("\t\t\t\t\t\t\t\t\t\tNot enough bet made!");
 				option = 2;
@@ -69,11 +72,21 @@ int main() {
 				delay(2);
 				system("CLS");
 				break;
+			}*/
+			int check = 0;
+			check=bet_check(check, bet, min_bet, balance);
+			if (check == 24) {
+				option = 2;
+				break;
 			}
 			c= Cards_given(D);
-			balance=Game(c, bet, balance, D, level);
+			last_balance = balance;
+			balance=Game(c, bet, balance, D, level, wl);
+			cyan();
 			printf("\n\t\t\t\t\t\t\t\t\t\tPlayers credit: %i", balance);
+			wl = WLD(balance, last_balance, wl);
 			D = CreateDeck("Deck.txt");
+			round += 1;
 			break;
 
 		default:
@@ -81,11 +94,21 @@ int main() {
 			printf("\n\t\t\t\t\t\t\t\t\t\tWrong command !");
 			break;
 		}
-
-
+		cyan();
+		printf("\n\t\t\t\t\t\t\t\t\t\tWin|lose|draw :%lf", wl);
+		if (round >= 1) {
+			base_level = level;
+			level = level_up(level, wl, balance);
+			if (base_level != level) {
+				balance = SetLevel(level);
+				base_balance = SetLevel(level);
+				min_bet = MinBet(level);
+				wl = 0;
+			}
+		}
 		if (balance < min_bet) {
 			red();
-			printf("\n\t\t\t\t\t\t\t\t\t\tNot enough credits to play. Better Luck next time!\n");
+			printf("\n\t\t\t\t\t\t\t\tNot enough credits to play. Better Luck next time!\n");
 			delay(5);
 			option = 0;
 		}
