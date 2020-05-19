@@ -375,7 +375,7 @@ void CurentStatus2(Dealer* playercards, Dealer* dealer1, int sum_player, int sum
 
 
 }
-
+//megallas
 int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet)
 {
 	int sum_player = 0;
@@ -429,7 +429,7 @@ int Stand(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int b
 
 
 }
-
+//double down lepes
 int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int bet)
 {
 	int sum_player = 0;
@@ -484,7 +484,7 @@ int Double(Dealer* playercards, Dealer* dealer1, Dealer* deck, int balance, int 
 
 
 }
-
+//tet ellenorzes
 int bet_check(int check, int bet, int min_bet, int balance)
 {
 	
@@ -508,7 +508,7 @@ int bet_check(int check, int bet, int min_bet, int balance)
 
 	return check;
 }
-
+//szint lepes
 int level_up(int level, double wl, int balance)
 {
 	int base_balance = SetLevel(level);
@@ -531,7 +531,7 @@ int level_up(int level, double wl, int balance)
 
 	return level;
 }
-
+//win lose rate szamolas
 double WLD(int balance, int last_balance, double wl)
 {
 	if (last_balance < balance) {
@@ -611,7 +611,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level, dou
 			/*--------------------------*/
 		case 3:
 			magenta();
-			if (anti_double >= 1) { red(); delay(2); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); break; }
+			if (anti_double >= 1) { break; }
 			if (2 * bet <= balance) {
 				;
 				playercards = Extra_card(deck, playercards);
@@ -619,7 +619,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level, dou
 				CurentStatus2(playercards, dealer1, sum_player, sum_dealer);
 				balance = Double(playercards, dealer1, deck, balance, bet);
 			}
-			else { red(); delay(2); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); last_step = 23; break; }
+			else { red(); printf("\t\t\t\t\t\t\t\t\t\tNot enough credits!"); last_step = 23;  delay(2); break; }
 			break;
 			/*--------------------------*/
 		case 23:
@@ -645,7 +645,7 @@ int Game(Dealer* playercards, int bet, int balance, Dealer* deck, int level, dou
 			printf("\t\t\t\t\t\t\t\t\t\tDouble down must be the first step!");
 			cyan();
 			delay(1);
-			printf("\n\n\t\t\t\t\t\t\t\t\tSteps:\n\t\t\t\t\t\t\t\t\t\t\t11.Quit game\n\t\t\t\t\t\t\t\t\t\t\t1.Stand\n\t\t\t\t\t\t\t\t\t\t2.Hit");
+			printf("\n\n\t\t\t\t\t\t\t\t\tSteps:\n\t\t\t\t\t\t\t\t\t\t11.Quit game\n\t\t\t\t\t\t\t\t\t\t1.Stand\n\t\t\t\t\t\t\t\t\t\t2.Hit");
 			if (anti_double < 1) { printf("\n\t\t\t\t\t\t\t\t\t\t3.Double down\n"); }
 			printf("\n\t\t\t\t\t\t\t\t\tNext step: ");
 			scanf("%i", &step);
@@ -747,7 +747,7 @@ void cyan() {
 }
 
 
-//plus
+//kesleltetes
 void delay(int number_of_seconds)
 {
 	// Converting time into milli_seconds 
@@ -760,14 +760,14 @@ void delay(int number_of_seconds)
 	while (clock() < start_time + milli_seconds)
 		;
 }
-
+//jatekos egyenelg kiiratasa
 void Player_Balance(int base_balance, int balance)
 {
 	cyan();
 	printf("\t\t\t\t\t\t\t\t\t\tBase balance: %i", base_balance);
 	printf("\n\t\t\t\t\t\t\t\t\t\tPlayers credit: %i", balance);
 }
-
+//menu kiiratas
 void menu()
 {
 	FILE* fin;

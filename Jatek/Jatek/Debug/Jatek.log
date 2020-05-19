@@ -5,6 +5,6 @@ C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(189,18): warni
 C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(247,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(283,18): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(803,11): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(431): warning C4715: 'Stand': not all control paths return a value
 C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(486): warning C4715: 'Double': not all control paths return a value
+C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Jatek\Functions.c(431): warning C4715: 'Stand': not all control paths return a value
   Jatek.vcxproj -> C:\Users\zakar\OneDrive\Desktop\BlackJack\Jatek\Debug\Jatek.exe
